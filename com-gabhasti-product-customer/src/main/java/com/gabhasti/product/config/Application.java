@@ -26,6 +26,7 @@ public class Application {
 
 		final NumberFormat format = NumberFormat.getInstance();
 
+		
 		final long maxMemory = runtime.maxMemory();
 		final long allocatedMemory = runtime.totalMemory();
 		final long freeMemory = runtime.freeMemory();
