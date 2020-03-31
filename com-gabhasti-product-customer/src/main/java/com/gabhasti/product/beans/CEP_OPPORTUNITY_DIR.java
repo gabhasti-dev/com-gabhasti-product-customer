@@ -1,61 +1,71 @@
 package com.gabhasti.product.beans;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 public class CEP_OPPORTUNITY_DIR {
 
+
 	public CEP_OPPORTUNITY_DIR() {
 	
 	}
-	//@Column(length = 50,nullable = false,unique = true,updatable = false)
-	//private String OPPORTUNITY_ID;
+
 	@Id
 	@GeneratedValue
-	@Column(length = 20,nullable = false,updatable=true)
-	private String directorId;
+	@Column(length = 20,updatable=true)
+	private long directorId;
 	
 	private BigInteger randomId;
-	@Column(length = 20,nullable = false,updatable=true)
+	@Column(length = 20,updatable=true)
 	private String directorName;
-	@Column(length = 20,nullable = false,updatable=true)
+	@Column(length = 20,updatable=true)
 	private String panNo;
-	@Column(length = 20,nullable = false,updatable=true)
+	@Column(length = 20,updatable=true)
 	private String aadharId;
-	@Column(length = 20,nullable = false,updatable=true)
+	@Column(length = 20,updatable=true)
 	private String voterId;
-	@Column(length = 15,nullable = false,updatable=true)
+	@Column(length = 15,updatable=true)
 	private String passportNo;
-	@Column(length = 15,nullable = false,updatable=true)
+	@Column(length = 15,updatable=true)
 	private String cibilScore;
-	@Column(length = 15,nullable = false,updatable=true)
+	@Column(length = 15,updatable=true)
 	private String mobileNo;
-	@Column(length = 15,nullable = false,updatable=false)
+	@Column(length = 15,updatable=false)
 	@Email
 	private String email;
-	//@Column(length = 1,nullable = false,updatable=true)
+	//@Column(length = 1,updatable=true)
 	//private String FLAG;
-	@Column(length = 20,nullable = false)
+	@Column(length = 20)
 	private String makerId;
-	@Column(nullable = false)
+	@Column()
 	private Date makerDate;
 	@ManyToOne
-	@JoinColumn(columnDefinition = "opportunityId")
 	private CEP_OPPORTUNITY_MASTER cepOpportunityMaster;
-	public String getDirectorId() {
+	
+	public CEP_OPPORTUNITY_MASTER getCepOpportunityMaster() {
+		return cepOpportunityMaster;
+	}
+	public void setCepOpportunityMaster(CEP_OPPORTUNITY_MASTER cepOpportunityMaster) {
+		this.cepOpportunityMaster = cepOpportunityMaster;
+	}
+		public long getDirectorId() {
 		return directorId;
 	}
-	public void setDirectorId(String directorId) {
+	public void setDirectorId(long directorId) {
 		this.directorId = directorId;
 	}
 	public BigInteger getRandomId() {
@@ -124,12 +134,7 @@ public class CEP_OPPORTUNITY_DIR {
 	public void setMakerDate(Date makerDate) {
 		this.makerDate = makerDate;
 	}
-	public CEP_OPPORTUNITY_MASTER getCepOpportunityMaster() {
-		return cepOpportunityMaster;
-	}
-	public void setCepOpportunityMaster(CEP_OPPORTUNITY_MASTER cepOpportunityMaster) {
-		this.cepOpportunityMaster = cepOpportunityMaster;
-	} 
+	
 	
 	
 		
