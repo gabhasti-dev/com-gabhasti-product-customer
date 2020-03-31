@@ -1,5 +1,6 @@
 package com.gabhasti.product.beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,21 +11,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class CEP_OPPORTUNITY_MASTER{
+public class CEP_OPPORTUNITY_MASTER  implements Serializable{
 
-	@Column(length = 20, nullable = false, unique = true, updatable = false)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(sequenceName ="SEQ_CEP_OPPORTUNITY_MASTER" ,name = "SEQ_CEP_OPPORTUNITY_MASTER",allocationSize = 1,initialValue =100100100)
+	@GeneratedValue(generator = "SEQ_CEP_OPPORTUNITY_MASTER",strategy = GenerationType.SEQUENCE)
+	@Column(length = 20, nullable = false, unique = true, updatable = false)
 	private Long opportunityId;
 	@Column(length = 200, unique = true)
 	private String companyName;
@@ -32,44 +38,48 @@ public class CEP_OPPORTUNITY_MASTER{
 	private String typeCompany;
 	@Column(length = 100)
 	private String address;
-	@Column(length = 50)
+	@Column(length = 100)
 	private String state;
 	@Column(length = 6)
 	private String pincode;
 	@Column(length = 100)
 	private String cin;
-	//@Column(length = 50, unique = true)
+	@Column(length = 50)
 	private String pan;
-	//@Column(length = 20, unique = true)
+	@Column(length = 20)
 	private String gstNo;
 	@Column(length = 10)
 	private String cersai;
-	@Column(length = 15, updatable = true)
+	@Column(length = 15)
 	private String cibilScore;
-	//@Column(nullable = false, updatable = false)
+	
 	private Date incorporationDate;
-	@Column(length = 50)
+	@Column(length = 50,unique = true)
 	@Email(message = "Email should be valid {privateLtd@gmail.com}")
 	private String emailId;
-	//@Column(length = 2)
-	//private int NO_OF_DIRECTORS;
-	@Column(length = 50)
+	@Column(length = 20,scale = 5)
 	private BigDecimal currentBusinessValue;
-	@Column(length = 10)
+	@Column(length = 15)
 	private long mobileNo;
 	@Column(length = 20)
 	private long officeLandlineNo;
 	@Column(length = 1)
-
 	private String flag = "O";
 	@Column(length = 20)
 	private String makerId;
-	//@Column(nullable = false)
 	private Date makerDate;
 
-	@OneToMany(mappedBy =  "cepOpportunityMaster", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonProperty("cepOpportunityDir")
+	@OneToMany(mappedBy = "cepOpportunityMaster", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private List<CEP_OPPORTUNITY_DIR> cepOpportunityDir = new ArrayList<>();
+
+	public List<CEP_OPPORTUNITY_DIR> getCepOpportunityDir() {
+		return cepOpportunityDir;
+	}
+
+	public void setCepOpportunityDir(List<CEP_OPPORTUNITY_DIR> cepOpportunityDir) {
+		this.cepOpportunityDir = cepOpportunityDir;
+	}
 
 	public Long getOpportunityId() {
 		return opportunityId;
@@ -222,6 +232,5 @@ public class CEP_OPPORTUNITY_MASTER{
 	public void setMakerDate(Date makerDate) {
 		this.makerDate = makerDate;
 	}
-
 
 }
