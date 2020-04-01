@@ -1,3 +1,5 @@
+Rune with environemnt argurmant in RUN as 
+spring.profiles.active = derby    >> in resources check there is a application-derby.properties file 
 Request: localhost:8081/api/opportunity/
 GET  
 
